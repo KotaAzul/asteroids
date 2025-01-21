@@ -2,11 +2,14 @@
 # the open-source pygame library
 import pygame
 from constants import *
+from player import *
 
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-        
+    clock = pygame.time.Clock()
+    dt = 0
+
     # game loop
     while True:
         # event handling
@@ -14,10 +17,17 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-            
+
+        #rendering
         screen.fill('black')
+        player.draw(screen)
         pygame.display.flip()
 
+        # setting frame rate to 60 fps
+        dt = clock.tick(60) / 1000  # converts milliseconds to seconds
+
+# create instance of player object at the center of the screen
+player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)     
 
 if __name__ == '__main__':
     main()
